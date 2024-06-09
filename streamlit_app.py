@@ -12,6 +12,8 @@ st.write(
     """
 )
 
+name_on_order = st.text_input('Name on Smoothie:')
+st.write('The name on your Smoothie will be:', name_on_order)
 
 session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
@@ -30,9 +32,12 @@ if ingredients_list:
         ingredients_string += fruit_chosen + ' '
     #st.write(ingredients_string)
 
-    my_insert_stmt = """ insert into smoothies.public.orders(ingredients) 
-        values ('""" + ingredients_string + """')"""
+    my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order) 
+        values ('""" + ingredients_string + """','"""+ name_on_order+"""')"""
     time_to_insert = st.button('Submit Order')
+
+    #st.write(my_insert_stmt)
+    #st.stop()
     
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
