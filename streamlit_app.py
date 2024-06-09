@@ -1,5 +1,6 @@
 # Import python packages
 import streamlit as st
+import pandas as pd
 import requests
 cnx = st.connection("snowflake")
 
